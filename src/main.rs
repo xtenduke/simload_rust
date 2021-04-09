@@ -59,21 +59,7 @@ fn index(count: Option<&RawStr>) -> ApiResponse {
         Ok(1)
     };
 
-
-    if value.is_err()  {
-        // Not a number error
-        return ApiResponse {
-            json: json!({
-                    "error":{
-                        "message": "Count must be a number between 0 and 10 inclusive"
-                    }
-                }
-            ),
-            status: Status::BadRequest
-        }
-    }
-
-    let resolved = value.unwrap();
+    let resolved = value.unwrap_or_else(|_err| -1);
     if resolved > 10 || resolved < 1 {
         return ApiResponse {
             json: json!({
