@@ -1,0 +1,20 @@
+[package]
+name = "stonks"
+version = "0.1.0"
+authors = ["Jake Laurie <jake.gordon.laurie@gmail.com>"]
+edition = "2018"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+rocket = "0.4.7"
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+serde_derive = "1.0"
+rand = "0.8.3"
+lazy_static = "1.4.0"
+
+[dependencies.rocket_contrib]
+version = "*"
+default-features = false
+features = ["json"]
