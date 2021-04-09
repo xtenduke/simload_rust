@@ -98,13 +98,16 @@ fn get_result(count: i8) -> Result<SimResp, Error> {
     let mut res: Vec<String> = vec![];
     for _x in 0..count {
         let rand = rng.gen_range(0..length + 1);
-        let val = messages.get(rand).expect("Invalid range");
-        res.push(val.to_owned());
+        let val = messages.get(rand);
+        if val.is_none() {
+            return Err(Error::default())
+        }
+        res.push(val.unwrap().to_owned());
     }
 
-    return Ok(SimResp {
+    Ok(SimResp {
         data: res,
-    });
+    })
 }
 
 fn read_file_to_vec(path: &str) -> Vec<String> {
