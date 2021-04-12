@@ -15,7 +15,6 @@ extern crate lazy_static;
 
 use rocket::http::{RawStr, Status, ContentType};
 use std::fmt::Error;
-use std::fs;
 use rocket_contrib::json::{JsonValue};
 use serde::Serialize;
 
@@ -47,7 +46,8 @@ impl<'r> Responder<'r> for ApiResponse {
 
 lazy_static! {
     static ref MESSAGES: Vec<String, Global> = {
-        read_file_to_vec("./messages.txt")
+        let messages_bytes = include_bytes!("../messages.txt");
+        return read_bytes(messages_bytes)
     };
 }
 
@@ -110,9 +110,8 @@ fn get_result(count: i8) -> Result<SimResp, Error> {
     })
 }
 
-fn read_file_to_vec(path: &str) -> Vec<String> {
-    return fs::read_to_string(path)
-        .expect("File read failure")
+fn read_bytes(bytes: &[u8]) -> Vec<String> {
+    return String::from_utf8_lossy(bytes)
         .split("\n")
         .map(|val| val.to_owned())
         .collect();

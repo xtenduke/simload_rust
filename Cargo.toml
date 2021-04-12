@@ -1,5 +1,5 @@
 [package]
-name = "stonks"
+name = "simload"
 version = "0.1.0"
 authors = ["Jake Laurie <jake.gordon.laurie@gmail.com>"]
 edition = "2018"
@@ -18,3 +18,7 @@ lazy_static = "1.4.0"
 version = "*"
 default-features = false
 features = ["json"]
+
+[[bin]]
+name = "simload"
+path = "src/main.rs"
